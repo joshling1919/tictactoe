@@ -4,7 +4,7 @@ $(document).ready (function() {
     var currentPlayer;
     var tile1, tile2, tile3, tile4, tile5, tile6, tile7, tile8, tile9;
     var endGame = false;
-    var winner;
+    var winner = false;
 
     function performLogic (button, tile) {
 
@@ -40,6 +40,7 @@ $(document).ready (function() {
             ((tile4===tile5 && tile4===tile6)&&(tile4!=undefined)) || 
             ((tile7===tile8 && tile7===tile9)&&(tile7!=undefined))) {
             endGame = true;
+            winner = true;
         }
 
         //vertical winners
@@ -47,20 +48,28 @@ $(document).ready (function() {
             ((tile2===tile5 && tile2===tile8)&&(tile2!=undefined)) || 
             ((tile3===tile6 && tile3===tile9)&&(tile3!=undefined))) {
             endGame = true;
+            winner = true;
         }
 
         //diagonal winners
         if (((tile1===tile5 && tile1===tile9)&&(tile1!=undefined)) ||
             ((tile3===tile5 && tile3===tile7)&&(tile3!=undefined))) {
             endGame = true;
+            winner = true;
         }
     }
 
     function endGameMove () {
-        if (endGame===true) {
+        if (endGame===true && winner===true) {
             $("button").hide();
             $("#turn").hide();
             $("h1").text(currentPlayer + " WON!!!").css("color","#715fba");
+        }
+
+        else if (endGame===true) {
+            $("button").hide();
+            $("#turn").hide();
+            $("h1").text("It's a draw! Try again!").css("color","#715fba");
         }
     }
 
